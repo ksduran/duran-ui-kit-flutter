@@ -1,106 +1,182 @@
 import 'package:flutter/material.dart';
 
 class DuranWelcomePage extends StatelessWidget {
-  final Widget image;
   final String title;
   final String subtitle;
-  final String buttonText;
-  final VoidCallback onPressed;
+  final String primaryButtonText;
+  final String secondaryButtonText;
+  final bool showPrimaryButton;
+  final bool showSecondaryButton;
+  final VoidCallback onPrimaryButtonClick;
+  final VoidCallback onSecondaryButtonClick;
+  final ImageProvider image;
 
   const DuranWelcomePage({
     super.key,
-    required this.image,
     required this.title,
     required this.subtitle,
-    required this.buttonText,
-    required this.onPressed,
+    required this.image,
+    this.primaryButtonText = "Primary",
+    this.secondaryButtonText = "Secondary",
+    this.showPrimaryButton = true,
+    this.showSecondaryButton = true,
+    this.onPrimaryButtonClick = _emptyCallback,
+    this.onSecondaryButtonClick = _emptyCallback,
   });
+
+  static void _emptyCallback() {}
 
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(24),
-      child: Container(
-        color: Colors.white,
-        width: 280,
-        child: Column(
-          children: [
-            // Imagen superior
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: image,
-            ),
+    final theme = Theme.of(context);
 
-            // Parte inferior curvada
-            Stack(
+    return Scaffold(
+      body: Column(
+        children: [
+          // Imagen (parte superior)
+          Expanded(
+            flex: 1,
+            child: Image(
+              image: image,
+              fit: BoxFit.cover,
+              width: double.infinity,
+            ),
+          ),
+
+          // Parte inferior con canvas y botones
+          Expanded(
+            flex: 2,
+            child: Stack(
               children: [
-                CustomPaint(
-                  size: Size(double.infinity, 200),
-                  painter: BottomCurvePainter(),
+                // Canvas dibujado en la parte inferior
+                Positioned.fill(
+                  child: CustomPaint(
+                    painter: _WavePainter(
+                      color: theme.colorScheme.primary,
+                    ),
+                  ),
                 ),
-                Container(
-                  height: 200,
-                  alignment: Alignment.center,
-                  padding: const EdgeInsets.symmetric(horizontal: 24.0),
+
+                // Contenido sobre el canvas
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
+                      const SizedBox(height: 60),
                       Text(
                         title,
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
                         textAlign: TextAlign.center,
+                        style: theme.textTheme.headlineLarge?.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: theme.colorScheme.surface,
+                        ),
                       ),
-                      const SizedBox(height: 12),
+                      const SizedBox(height: 8),
                       Text(
                         subtitle,
-                        style: const TextStyle(
-                          color: Colors.white70,
-                          fontSize: 12,
-                        ),
                         textAlign: TextAlign.center,
+                        style: theme.textTheme.bodyLarge?.copyWith(
+                          color: theme.colorScheme.surface.withOpacity(0.8),
+                        ),
                       ),
-                      const SizedBox(height: 20),
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.pinkAccent,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20),
+                      const Spacer(),
+
+                      // Botón primario
+                      if (showPrimaryButton)
+                        SizedBox(
+                          width: double.infinity,
+                          height: 60,
+                          child: FilledButton(
+                            onPressed: onPrimaryButtonClick,
+                            style: FilledButton.styleFrom(
+                              backgroundColor: theme.colorScheme.surface,
+                              foregroundColor: theme.colorScheme.onSurface,
+                            ),
+                            child: Text(primaryButtonText),
                           ),
                         ),
-                        onPressed: onPressed,
-                        child: Text(buttonText),
-                      ),
+
+                      if (showSecondaryButton) const SizedBox(height: 16),
+
+                      // Botón secundario
+                      if (showSecondaryButton)
+                        SizedBox(
+                          width: double.infinity,
+                          height: 60,
+                          child: FilledButton(
+                            onPressed: onSecondaryButtonClick,
+                            style: FilledButton.styleFrom(
+                              backgroundColor: theme.colorScheme.surface,
+                              foregroundColor: theme.colorScheme.onSurface,
+                            ),
+                            child: Stack(
+                              alignment: Alignment.center,
+                              children: [
+                                Align(
+                                  alignment: Alignment.center,
+                                  child: Text(secondaryButtonText),
+                                ),
+                                const Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Icon(Icons.arrow_forward_ios),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                      const SizedBox(height: 24),
                     ],
                   ),
-                )
+                ),
               ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
 }
 
-class BottomCurvePainter extends CustomPainter {
+class _WavePainter extends CustomPainter {
+  final Color color;
+
+  _WavePainter({required this.color});
+
   @override
   void paint(Canvas canvas, Size size) {
-    final paint = Paint()..color = const Color(0xFF0D1128); // Dark background
+    final paint = Paint()..color = color;
 
-    final path = Path()
-      ..moveTo(0, 40)
-      ..quadraticBezierTo(size.width * 0.5, 0, size.width, 40)
-      ..lineTo(size.width, size.height)
-      ..lineTo(0, size.height)
-      ..close();
+    final path = Path();
+    path.moveTo(0, size.height);
+    path.lineTo(0, size.height * 0.4);
+
+    path.quadraticBezierTo(
+      size.width * 0.0,
+      size.height * 0.2,
+      size.width * 0.3,
+      size.height * 0.2,
+    );
+
+    path.quadraticBezierTo(
+      size.width * 0.6,
+      size.height * 0.2,
+      size.width * 0.7,
+      size.height * 0.2,
+    );
+
+    path.quadraticBezierTo(
+      size.width * 0.99,
+      size.height * 0.2,
+      size.width,
+      0,
+    );
+
+    path.lineTo(size.width, size.height);
+    path.close();
 
     canvas.drawPath(path, paint);
   }
 
   @override
-  bool shouldRepaint(CustomPainter oldDelegate) => false;
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }

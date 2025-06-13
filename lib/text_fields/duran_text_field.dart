@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class RoundedTextFormField extends StatelessWidget {
+class DuranTextField extends StatelessWidget {
   final TextEditingController? controller;
   final String? hintText;
   final String? label;
@@ -17,7 +17,7 @@ class RoundedTextFormField extends StatelessWidget {
   final VoidCallback? onTap;
   final List<TextInputFormatter>? inputFormatters;
 
-  const RoundedTextFormField({
+  const DuranTextField({
     super.key,
     this.controller,
     this.hintText,

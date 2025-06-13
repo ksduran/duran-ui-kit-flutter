@@ -1,7 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 
-class ModernListTile extends StatelessWidget {
+class DuranListItem extends StatelessWidget {
   final Widget? leading;
   final Widget? trailing;
   final Widget? title;
@@ -12,7 +12,7 @@ class ModernListTile extends StatelessWidget {
   final VoidCallback? onLongPress;
   final Duration animationDuration;
 
-  const ModernListTile({
+  const DuranListItem({
     super.key,
     this.leading,
     this.trailing,

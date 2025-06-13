@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class SaveButton extends StatelessWidget {
-  const SaveButton({
+class DuranSaveButton extends StatelessWidget {
+  const DuranSaveButton({
     super.key,
     required this.enabled,
     required this.onPressed

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-class ModernBackButton extends StatelessWidget {
-  const ModernBackButton({super.key});
+class DuranBackButton extends StatelessWidget {
+  const DuranBackButton({super.key});
 
   @override
   Widget build(BuildContext context) {

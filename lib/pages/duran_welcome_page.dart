@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 class DuranWelcomePage extends StatelessWidget {
   final String title;
@@ -9,13 +10,13 @@ class DuranWelcomePage extends StatelessWidget {
   final bool showSecondaryButton;
   final VoidCallback onPrimaryButtonClick;
   final VoidCallback onSecondaryButtonClick;
-  final ImageProvider image;
+  final SvgPicture svgPicture;
 
   const DuranWelcomePage({
     super.key,
     required this.title,
     required this.subtitle,
-    required this.image,
+    required this.svgPicture,
     this.primaryButtonText = "Primary",
     this.secondaryButtonText = "Secondary",
     this.showPrimaryButton = true,
@@ -36,11 +37,7 @@ class DuranWelcomePage extends StatelessWidget {
           // Imagen (parte superior)
           Expanded(
             flex: 1,
-            child: Image(
-              image: image,
-              fit: BoxFit.cover,
-              width: double.infinity,
-            ),
+            child: svgPicture,
           ),
 
           // Parte inferior con canvas y botones

@@ -10,13 +10,13 @@ class DuranWelcomePage extends StatefulWidget {
   final bool showSecondaryButton;
   final VoidCallback onPrimaryButtonClick;
   final VoidCallback onSecondaryButtonClick;
-  final SvgPicture image;
+  final SvgPicture svgPicture;
 
   const DuranWelcomePage({
     super.key,
     required this.title,
     required this.subtitle,
-    required this.image,
+    required this.svgPicture,
     this.primaryButtonText = "Primary",
     this.secondaryButtonText = "Secondary",
     this.showPrimaryButton = true,
@@ -45,7 +45,7 @@ class _DuranWelcomePageState extends State<DuranWelcomePage> {
           // Imagen (parte superior)
           Expanded(
             flex: 1,
-            child: widget.image,
+            child: widget.svgPicture,
           ),
 
           // Parte inferior con canvas y botones

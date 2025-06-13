@@ -1,0 +1,1 @@
+export 'duran_welcome_page.dart';

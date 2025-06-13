@@ -57,72 +57,78 @@ class DuranWelcomePage extends StatelessWidget {
                 // Contenido sobre el canvas
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: Column(
-                    children: [
-                      const SizedBox(height: 60),
-                      Text(
-                        title,
-                        textAlign: TextAlign.center,
-                        style: theme.textTheme.headlineLarge?.copyWith(
-                          fontWeight: FontWeight.bold,
-                          color: theme.colorScheme.surface,
-                        ),
-                      ),
-                      const SizedBox(height: 8),
-                      Text(
-                        subtitle,
-                        textAlign: TextAlign.center,
-                        style: theme.textTheme.bodyLarge?.copyWith(
-                          color: theme.colorScheme.surface.withOpacity(0.8),
-                        ),
-                      ),
-                      const Spacer(),
-
-                      // Botón primario
-                      if (showPrimaryButton)
-                        SizedBox(
-                          width: double.infinity,
-                          height: 60,
-                          child: FilledButton(
-                            onPressed: onPrimaryButtonClick,
-                            style: FilledButton.styleFrom(
-                              backgroundColor: theme.colorScheme.surface,
-                              foregroundColor: theme.colorScheme.onSurface,
+                  child: SafeArea(
+                    child: SingleChildScrollView(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          SizedBox(height: MediaQuery.of(context).size.height * 0.05),
+                          Text(
+                            title,
+                            textAlign: TextAlign.center,
+                            style: theme.textTheme.headlineLarge?.copyWith(
+                              fontWeight: FontWeight.bold,
+                              color: theme.colorScheme.surface,
                             ),
-                            child: Text(primaryButtonText),
                           ),
-                        ),
-
-                      if (showSecondaryButton) const SizedBox(height: 16),
-
-                      // Botón secundario
-                      if (showSecondaryButton)
-                        SizedBox(
-                          width: double.infinity,
-                          height: 60,
-                          child: FilledButton(
-                            onPressed: onSecondaryButtonClick,
-                            style: FilledButton.styleFrom(
-                              backgroundColor: theme.colorScheme.surface,
-                              foregroundColor: theme.colorScheme.onSurface,
+                          const SizedBox(height: 8),
+                          Text(
+                            subtitle,
+                            textAlign: TextAlign.center,
+                            style: theme.textTheme.bodyLarge?.copyWith(
+                              color: theme.colorScheme.surface.withOpacity(0.8),
                             ),
-                            child: Stack(
-                              alignment: Alignment.center,
-                              children: [
-                                Align(
-                                  alignment: Alignment.center,
-                                  child: Text(secondaryButtonText),
+                          ),
+                          const SizedBox(height: 32),
+
+                          // Botón primario
+                          if (showPrimaryButton)
+                            SizedBox(
+                              width: double.infinity,
+                              height: 60,
+                              child: FilledButton(
+                                onPressed: onPrimaryButtonClick,
+                                style: FilledButton.styleFrom(
+                                  backgroundColor: theme.colorScheme.surface,
+                                  foregroundColor: theme.colorScheme.onSurface,
                                 ),
-                                const Align(
-                                  alignment: Alignment.centerRight,
-                                  child: Icon(Icons.arrow_forward_ios),
-                                )
-                              ],
+                                child: Text(primaryButtonText),
+                              ),
                             ),
-                          ),
-                        ),
-                      const SizedBox(height: 24),
-                    ],
+
+                          if (showSecondaryButton) const SizedBox(height: 16),
+
+                          // Botón secundario
+                          if (showSecondaryButton)
+                            SizedBox(
+                              width: double.infinity,
+                              height: 60,
+                              child: FilledButton(
+                                onPressed: onSecondaryButtonClick,
+                                style: FilledButton.styleFrom(
+                                  backgroundColor: theme.colorScheme.surface,
+                                  foregroundColor: theme.colorScheme.onSurface,
+                                ),
+                                child: Stack(
+                                  alignment: Alignment.center,
+                                  children: [
+                                    Align(
+                                      alignment: Alignment.center,
+                                      child: Text(secondaryButtonText),
+                                    ),
+                                    const Align(
+                                      alignment: Alignment.centerRight,
+                                      child: Icon(Icons.arrow_forward_ios),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+
+                          const SizedBox(height: 24),
+                        ],
+                      ),
+                    ),
                   ),
                 ),
               ],

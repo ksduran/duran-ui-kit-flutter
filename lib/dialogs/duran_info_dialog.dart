@@ -56,6 +56,10 @@ class _DuranInfoDialogState extends State<DuranInfoDialog> {
         title: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
+            Icon(
+              Icons.warning_rounded,
+              size: 60,
+              color: accent,
             ),
             const SizedBox(height: 16),
             Text(

@@ -56,11 +56,6 @@ class _DuranInfoDialogState extends State<DuranInfoDialog> {
         title: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            IconViewer(
-              controller: iconController,
-              width: 60.0,
-              height: 60.0,
-              colorize: accent,
             ),
             const SizedBox(height: 16),
             Text(
